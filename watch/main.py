@@ -1,7 +1,8 @@
-
 import sys
 from pathlib import Path
 import datetime as dt
+import argparse
+
 import prettytable as pt
 
 from .connector import WatchDB, NullWatchError, QueryError
@@ -244,12 +245,11 @@ def exec_command(database: WatchDB, inp: str):
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("Error: enter sqlite3 database file as the only argument.", file=sys.stderr)
-        exit(1)
+    parser = argparse.ArgumentParser("Watch DB")
+    parser.add_argument("--database", type=Path, default=Path('~').expanduser() / '.watchdb')
+    args = parser.parse_args()
 
-    database_name = Path(sys.argv[1])
-    database = WatchDB(str(database_name))
+    database = WatchDB(str(args.database))
 
     print("watchDB - watch measurement database")
 
