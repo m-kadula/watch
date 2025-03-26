@@ -42,7 +42,8 @@ class WatchDB:
             watch_id INTEGER NOT NULL,
             cycle INTEGER NOT NULL,
             timedate DATETIME NOT NULL,
-            measure FLOAT NOT NULL
+            measure FLOAT NOT NULL,
+            FOREIGN KEY (watch_id) REFERENCES info (watch_id) ON DELETE CASCADE
         );
         ''')
         con.commit()
