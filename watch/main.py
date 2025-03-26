@@ -1,4 +1,3 @@
-import sys
 from pathlib import Path
 import datetime as dt
 import argparse
@@ -192,14 +191,14 @@ def exec_command(database: WatchDB, inp: str):
         case ["log"]:
             data = database.data.get_log_with_dif()
             table = pt.PrettyTable(('log id', 'timedate', 'measure', 'difference'))
-            table.add_rows((log.other['id'], log.time, log.measure, log.other['difference'])
-                           for log in data.data)
+            table.add_rows([(log.other['id'], log.time, log.measure, log.other['difference'])
+                           for log in data.data])
             print(str(table))
 
         case ["fill"]:
             data = database.data.fill(INTERPOLATION_METHOD).get_log_with_dif()
             table = pt.PrettyTable(('timedate', 'measure', 'difference'))
-            table.add_rows((log.time, log.measure, log.other['difference']) for log in data.data)
+            table.add_rows([(log.time, log.measure, log.other['difference']) for log in data.data])
             print(str(table))
 
         case ["stat"]:
